@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ajax POST test</title>
+</head>
+<body>
+
+<h1>测试 表单 POST 发送和收取结果</h1>
+
+<form method="post" action="func1.py?a=1&b=我">
+Name:<input type="text" name="name">
+<br/>
+Addr:<input type="text" name="addr">
+<input type="submit" value="Submit">
+</form>
+
+
+<h1>测试 Ajax POST 发送和收取结果</h1>
+<h3>POST data to url: </h3>
+<div id="p1">
+	<ul>
+		<li>http://IP_PORT/CALLPATH</li>
+	</ul>
+</div>
+
+<h3>data format as json:</h3>
+<p id = "p2"></p>
+<button onclick="func1()">示例结果</button>
+<p id="p3"></p>
+
+<hr>
+laiwei@yuanqu 2019.8
+
+<script>
+	//document.write("<p>"+ window.location.href +"</p>");
+	//var host = window.location.host;
+	
+	var host = '192.168.0.50:9619';
+	var callpath = 'func1.py';
+	//var host = '192.168.0.61';
+	//var callpath = 'laiw/php/hello.php';
+	var par = '?a=1&你=我';
+	
+	var post_data = '{"text": "小学生做文=。。。", "title": "我是标题党"}';
+	//var post_data = 'text=做文&段落=。。。"}';
+	
+	var ep1 = document.getElementById("p1");
+	ep1.innerHTML = ep1.innerHTML.replace(/IP_PORT/g, host);
+	ep1.innerHTML = ep1.innerHTML.replace(/CALLPATH/g, callpath + par);
+	var ep2 = document.getElementById("p2");
+	ep2.innerHTML = post_data;
+	
+	function callpost(postData, par, elmtid){
+		var oAjax = null;
+		try{
+		　　oAjax = new XMLHttpRequest();
+		}catch(e){
+		　　oAjax = new ActiveXObject("Microsoft.XMLHTTP");
+		};
+		oAjax.open('post', 'http://' + host + '/' + callpath + par);
+		oAjax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		oAjax.send(postData);  //,true) ??
+		oAjax.onreadystatechange = function(){
+		　　//当状态为4的时候，执行以下操作
+		　　if(oAjax.readyState == 4){	//&& oAjax.status == 200
+　　　　		try{
+		　　　　　　//alert(oAjax.responseText);	//JSON.parse(oAjax.responseText);
+					document.getElementById(elmtid).innerHTML = oAjax.responseText;
+　　　　		}catch(e){
+		　　　　　　alert('你访问的页面出错了');
+　　　　		};
+		　　};
+		};
+		//document.getElementById("p2").innerHTML="Hello World";
+	}
+		
+	function func1(){
+		callpost(post_data, par, "p3");
+	}
+</script>
+
+</body>
+</html>
