@@ -11,12 +11,12 @@ def app():
     print('GET=', GET)
     if(GET):
         for k,v in GET.items():
-            print('%s=%s' % (k, parse.unquote(v)), end='; ')
+            print('%s=%s' % (parse.unquote(k), parse.unquote(v)), end='; ')
         print('')
     print('POST=', POST)
     if(POST):
         for k,v in POST.items():
-            print('%s=%s' % (k, parse.unquote(v)), end='; ')
+            print('%s=%s' % (parse.unquote(k), parse.unquote(v)), end='; ')
         print('')
     print('rawPOST=', rawPOST)
     

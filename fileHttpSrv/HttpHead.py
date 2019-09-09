@@ -88,7 +88,7 @@ class HttpRequest(object):
         header_list = request_line.split(' ')
         self.method = header_list[0].upper()
         self.url = header_list[1]
-        if self.url == '/':
+        if self.url == '/':   # url= http://ip:port or http://ip:port/
             self.url = '/index.html'
         self.protocol = header_list[2]
 

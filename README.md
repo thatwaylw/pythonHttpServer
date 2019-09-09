@@ -8,7 +8,7 @@ fileHttpSrv - 加入简单的文件web服务，支持常见的图片，js，css�
 twistedHttpSrv - 用Tiwsted库实现的Http服务器
 // 安装说明：
 	pip install service_identity
-    pip install twisted
+	pip install twisted
 
 // 启动方法：
 	简单启动：python3 srv_data.py
